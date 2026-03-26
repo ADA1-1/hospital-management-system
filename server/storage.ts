@@ -100,3 +100,22 @@ export async function storageGet(relKey: string): Promise<{ key: string; url: st
     url: await buildDownloadUrl(baseUrl, key, apiKey),
   };
 }
+
+/**
+ * Generate a unique file key for storing medical documents
+ * @param patientId - Patient ID
+ * @param documentType - Type of document (e.g., "report", "xray", "lab_result")
+ * @param originalFileName - Original file name
+ * @returns Unique file key
+ */
+export function generateDocumentKey(
+  patientId: number,
+  documentType: string,
+  originalFileName: string
+): string {
+  const timestamp = Date.now();
+  const randomSuffix = Math.random().toString(36).substring(2, 8);
+  const extension = originalFileName.split(".").pop() || "bin";
+
+  return `patients/${patientId}/documents/${documentType}/${timestamp}-${randomSuffix}.${extension}`;
+}
