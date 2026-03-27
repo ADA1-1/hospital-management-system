@@ -161,3 +161,4 @@
 ## Current Tasks
 
 - [x] Rename system to "ADASIT HOSPITAL"
+- [x] Change theme from dark mode to light mode
