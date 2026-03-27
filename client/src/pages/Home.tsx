@@ -26,7 +26,11 @@ export default function Home() {
         <div className="border-b border-cyan-300/40 bg-white/50 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <Activity className="w-8 h-8 text-cyan-400" />
+              <img
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663480390382/QD8CxmkBoXQQrVCLP9dFZA/pasted_file_SsxR3a_WhatsAppImage2026-03-27at10.25.01_d1264090.jpeg"
+                alt="ADASIT Hospital"
+                className="w-10 h-10 rounded-full object-cover border-2 border-cyan-400"
+              />
               <h1 className="text-2xl font-bold text-cyan-900">ADASIT HOSPITAL</h1>
             </div>
             <div className="text-sm text-cyan-700">
@@ -139,7 +143,11 @@ export default function Home() {
       {/* Content */}
       <div className="relative z-10 text-center max-w-2xl">
         <div className="flex justify-center mb-8">
-          <Activity className="w-16 h-16 text-cyan-600 animate-pulse" />
+          <img
+            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663480390382/QD8CxmkBoXQQrVCLP9dFZA/pasted_file_SsxR3a_WhatsAppImage2026-03-27at10.25.01_d1264090.jpeg"
+            alt="ADASIT Hospital"
+            className="w-32 h-32 rounded-lg object-cover border-4 border-cyan-400 shadow-lg shadow-cyan-400/50 animate-pulse"
+          />
         </div>
 
         <h1 className="text-5xl md:text-6xl font-bold text-cyan-900 mb-4 tracking-tight">

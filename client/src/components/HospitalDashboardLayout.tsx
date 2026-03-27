@@ -52,8 +52,17 @@ export default function HospitalDashboardLayout({ children }: { children: React.
         } bg-card border-r border-border transition-all duration-300 flex flex-col shadow-lg`}
       >
         {/* Header */}
-        <div className="p-6 border-b border-border flex items-center justify-between">
-          {sidebarOpen && <h1 className="text-xl font-bold text-cyan-400">ADASIT</h1>}
+        <div className="p-4 border-b border-border flex items-center justify-between">
+          {sidebarOpen && (
+            <div className="flex items-center gap-2">
+              <img
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663480390382/QD8CxmkBoXQQrVCLP9dFZA/pasted_file_SsxR3a_WhatsAppImage2026-03-27at10.25.01_d1264090.jpeg"
+                alt="ADASIT Hospital"
+                className="w-10 h-10 rounded-full object-cover border-2 border-cyan-400"
+              />
+              <h1 className="text-lg font-bold text-cyan-600">ADASIT</h1>
+            </div>
+          )}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-2 hover:bg-background rounded-lg transition-colors"

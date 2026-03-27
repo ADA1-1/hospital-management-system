@@ -166,3 +166,6 @@
 - [ ] Add profile photo upload for doctors
 - [x] Display profile photos in patient/doctor lists
 - [x] Update database schema with photo URLs
+- [x] Add hospital building image as logo
+- [x] Integrate hospital image in header/navigation
+- [x] Add hospital image to sign-in/dashboard pages
