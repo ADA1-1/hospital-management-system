@@ -195,3 +195,9 @@
 ## Bug Fixes
 
 - [x] Fix hamburger menu visibility - menu items not showing when menu is open
+
+## Follow-Up Features to Implement
+
+- [ ] Stripe Payment Integration for billing
+- [ ] SMS/Email Appointment Reminders
+- [x] Medical Document Management UI

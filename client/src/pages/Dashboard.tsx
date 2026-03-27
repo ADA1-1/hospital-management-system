@@ -3,7 +3,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, Stethoscope, Calendar, FileText, CreditCard, TrendingUp } from "lucide-react";
+import { Users, Stethoscope, Calendar, FileText, CreditCard, TrendingUp, File } from "lucide-react";
 import HospitalDashboardLayout from "@/components/HospitalDashboardLayout";
 
 interface StatCard {
@@ -189,7 +189,17 @@ export default function Dashboard() {
                   <FileText className="w-4 h-4 mr-2" />
                   Medical Records
                 </Button>
+                <Button className="btn-secondary w-full justify-start" onClick={() => (window.location.href = "/medical-documents")}>
+                  <File className="w-4 h-4 mr-2" />
+                  Medical Documents
+                </Button>
               </>
+            )}
+            {user?.role === "admin" && (
+              <Button className="btn-secondary w-full justify-start" onClick={() => (window.location.href = "/medical-documents")}>
+                <File className="w-4 h-4 mr-2" />
+                Medical Documents
+              </Button>
             )}
           </div>
         </div>
