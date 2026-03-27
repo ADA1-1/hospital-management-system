@@ -178,3 +178,10 @@
 - [x] Enhance login page with better UX
 - [x] Add profile menu dropdown in header
 - [x] Test all profile features
+
+## Public Navigation Menu
+
+- [x] Create PublicLayout component with navigation
+- [x] Update Home page to use PublicLayout
+- [x] Add public pages (About, Services, Contact)
+- [x] Test public navigation

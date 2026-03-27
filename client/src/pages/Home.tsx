@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
 import { getLoginUrl } from "@/const";
 import { Activity, Users, Calendar, FileText, DollarSign, Shield } from "lucide-react";
+import PublicLayout from "@/components/PublicLayout";
 
 export default function Home() {
   const { user, isAuthenticated, loading } = useAuth();
@@ -131,9 +132,10 @@ export default function Home() {
     );
   }
 
-  // Not authenticated - show login page
+  // Not authenticated - show login page with public layout
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-orange-50 flex flex-col items-center justify-center px-4">
+    <PublicLayout>
+      <div className="flex flex-col items-center justify-center px-4 py-16">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-300/20 rounded-full blur-3xl"></div>
@@ -186,6 +188,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </PublicLayout>
   );
 }

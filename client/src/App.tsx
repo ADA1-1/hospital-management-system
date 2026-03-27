@@ -12,11 +12,17 @@ import Appointments from "./pages/Appointments";
 import MedicalRecords from "./pages/MedicalRecords";
 import Billing from "./pages/Billing";
 import Profile from "./pages/Profile";
+import About from "./pages/About";
+import Services from "./pages/Services";
+import Contact from "./pages/Contact";
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/about"} component={About} />
+      <Route path={"/services"} component={Services} />
+      <Route path={"/contact"} component={Contact} />
       <Route path={"/dashboard"} component={Dashboard} />
       <Route path={"/patients"} component={Patients} />
       <Route path={"/doctors"} component={Doctors} />
