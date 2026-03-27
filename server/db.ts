@@ -282,6 +282,14 @@ export async function getDoctorByUserId(userId: number): Promise<Doctor | undefi
   return result.length > 0 ? result[0] : undefined;
 }
 
+export async function deleteDoctor(id: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+
+  await db.delete(doctors).where(eq(doctors.id, id));
+  return true;
+}
+
 // ============= APPOINTMENT QUERIES =============
 
 export async function createAppointment(appointment: InsertAppointment): Promise<Appointment> {

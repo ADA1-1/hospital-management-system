@@ -162,3 +162,7 @@
 
 - [x] Rename system to "ADASIT HOSPITAL"
 - [x] Change theme from dark mode to light mode
+- [x] Add profile photo upload for patients
+- [ ] Add profile photo upload for doctors
+- [x] Display profile photos in patient/doctor lists
+- [x] Update database schema with photo URLs

@@ -83,6 +83,7 @@ const patientRouter = router({
         lastName: z.string().optional(),
         email: z.string().email().optional(),
         phone: z.string().optional(),
+        photoUrl: z.string().optional(),
         dateOfBirth: z.date().optional(),
         gender: z.enum(["male", "female", "other"]).optional(),
         address: z.string().optional(),
@@ -99,6 +100,17 @@ const patientRouter = router({
     .mutation(async ({ input }) => {
       const { id, ...data } = input;
       return await db.updatePatient(id, data);
+    }),
+
+  uploadPhoto: receptionistProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        photoUrl: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      return await db.updatePatient(input.id, { photoUrl: input.photoUrl });
     }),
 
   delete: adminProcedure
@@ -164,6 +176,7 @@ const doctorRouter = router({
         lastName: z.string().optional(),
         email: z.string().email().optional(),
         phone: z.string().optional(),
+        photoUrl: z.string().optional(),
         specialization: z.string().optional(),
         qualifications: z.string().optional(),
         yearsOfExperience: z.number().optional(),
@@ -179,10 +192,27 @@ const doctorRouter = router({
       return await db.updateDoctor(id, data as any);
     }),
 
+  uploadPhoto: adminProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        photoUrl: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      return await db.updateDoctor(input.id, { photoUrl: input.photoUrl } as any);
+    }),
+
   getByUserId: protectedProcedure
     .input(z.object({ userId: z.number() }))
     .query(async ({ input }) => {
       return await db.getDoctorByUserId(input.userId);
+    }),
+
+  delete: adminProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      return await db.deleteDoctor(input.id);
     }),
 });
 
