@@ -20,7 +20,7 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-orange-50">
       {/* Navigation Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-cyan-200/40 sticky top-0 z-50 shadow-sm">
+      <header className="bg-white/80 backdrop-blur-md border-b border-cyan-200/40 sticky top-0 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
@@ -58,7 +58,7 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 hover:bg-slate-100 rounded-lg transition-colors"
+              className="md:hidden p-2 hover:bg-slate-100 rounded-lg transition-colors z-50"
             >
               {mobileMenuOpen ? (
                 <X className="w-6 h-6 text-slate-600" />
@@ -68,29 +68,30 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
             </button>
           </div>
         </div>
-
-        {/* Mobile Navigation Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t-2 border-cyan-400 px-4 py-6 space-y-4 absolute top-full left-0 right-0 z-40 shadow-lg">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="block px-4 py-3 text-slate-800 font-semibold hover:bg-cyan-100 hover:text-cyan-900 rounded-lg transition-all bg-slate-50 border-l-4 border-cyan-400"
-              >
-                {link.label}
-              </a>
-            ))}
-            <Button
-              onClick={() => (window.location.href = getLoginUrl())}
-              className="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white gap-2 py-3 font-semibold"
-            >
-              <LogIn className="w-4 h-4" />
-              Sign In
-            </Button>
-          </div>
-        )}
       </header>
+
+      {/* Mobile Navigation Menu - Fixed Positioning */}
+      {mobileMenuOpen && (
+        <div className="md:hidden fixed top-20 left-0 right-0 bg-white border-b-2 border-cyan-400 px-4 py-6 space-y-4 z-50 shadow-xl max-h-96 overflow-y-auto">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="block px-4 py-3 text-slate-800 font-semibold hover:bg-cyan-100 hover:text-cyan-900 rounded-lg transition-all bg-slate-50 border-l-4 border-cyan-400"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {link.label}
+            </a>
+          ))}
+          <Button
+            onClick={() => (window.location.href = getLoginUrl())}
+            className="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white gap-2 py-3 font-semibold"
+          >
+            <LogIn className="w-4 h-4" />
+            Sign In
+          </Button>
+        </div>
+      )}
 
       {/* Page Content */}
       <main className="flex-1">{children}</main>
