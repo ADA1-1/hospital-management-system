@@ -53,7 +53,7 @@ export default function HospitalDashboardLayout({ children }: { children: React.
       >
         {/* Header */}
         <div className="p-6 border-b border-border flex items-center justify-between">
-          {sidebarOpen && <h1 className="text-xl font-bold text-cyan-400">HMS</h1>}
+          {sidebarOpen && <h1 className="text-xl font-bold text-cyan-400">ADASIT</h1>}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-2 hover:bg-background rounded-lg transition-colors"
@@ -107,7 +107,7 @@ export default function HospitalDashboardLayout({ children }: { children: React.
         {/* Top Bar */}
         <header className="bg-card border-b border-border px-8 py-4 flex items-center justify-between shadow-sm">
           <div>
-            <h2 className="text-2xl font-bold text-cyan-400">Hospital Management System</h2>
+            <h2 className="text-2xl font-bold text-cyan-400">ADASIT HOSPITAL</h2>
             <p className="text-sm text-muted-foreground">Welcome back, {user.name || "User"}</p>
           </div>
           <div className="flex items-center gap-4">

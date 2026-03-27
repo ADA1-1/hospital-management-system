@@ -107,7 +107,7 @@ export default function Dashboard() {
       <div className="space-y-8">
         {/* Welcome Section */}
         <div className="bg-gradient-to-r from-cyan-900 to-orange-900 rounded-lg p-8 border border-cyan-500 border-opacity-30">
-          <h1 className="text-4xl font-bold text-white mb-2">Welcome to HMS</h1>
+          <h1 className="text-4xl font-bold text-white mb-2">Welcome to ADASIT HOSPITAL</h1>
           <p className="text-cyan-200">
             {user?.role === "admin"
               ? "Manage your hospital operations efficiently"
@@ -202,7 +202,7 @@ export default function Dashboard() {
               <div className="w-3 h-3 bg-cyan-400 rounded-full"></div>
               <div className="flex-1">
                 <p className="font-medium text-foreground">System initialized</p>
-                <p className="text-sm text-muted-foreground">Welcome to Hospital Management System</p>
+                <p className="text-sm text-muted-foreground">Welcome to ADASIT HOSPITAL</p>
               </div>
               <span className="text-xs text-muted-foreground">Just now</span>
             </div>

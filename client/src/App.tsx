@@ -15,7 +15,7 @@ import Billing from "./pages/Billing";
 function Router() {
   return (
     <Switch>
-      <Route path={"/ "} component={Home} />
+      <Route path={"/"} component={Home} />
       <Route path={"/dashboard"} component={Dashboard} />
       <Route path={"/patients"} component={Patients} />
       <Route path={"/doctors"} component={Doctors} />
@@ -37,7 +37,7 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider
-        defaultTheme="light"
+        defaultTheme="dark"
         // switchable
       >
         <TooltipProvider>

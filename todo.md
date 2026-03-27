@@ -157,3 +157,7 @@
 - [ ] UI/UX polish and refinement
 - [ ] Final testing and bug fixes
 - [ ] Documentation and user guide
+
+## Current Tasks
+
+- [x] Rename system to "ADASIT HOSPITAL"
