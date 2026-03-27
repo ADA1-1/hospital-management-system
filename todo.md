@@ -169,3 +169,12 @@
 - [x] Add hospital building image as logo
 - [x] Integrate hospital image in header/navigation
 - [x] Add hospital image to sign-in/dashboard pages
+
+## User Profile Management Features
+
+- [x] Create user profile page with view and edit functionality
+- [x] Add profile photo upload for users
+- [x] Implement logout functionality in navigation
+- [x] Enhance login page with better UX
+- [x] Add profile menu dropdown in header
+- [x] Test all profile features

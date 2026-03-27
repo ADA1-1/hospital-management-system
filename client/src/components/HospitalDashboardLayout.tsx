@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useLocation, useRoute } from "wouter";
-import { Menu, X, LogOut, Home, Users, Stethoscope, Calendar, FileText, CreditCard, BarChart3 } from "lucide-react";
+import { Menu, X, LogOut, Home, Users, Stethoscope, Calendar, FileText, CreditCard, BarChart3, User, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface NavItem {
@@ -23,8 +23,9 @@ const navItems: NavItem[] = [
 
 export default function HospitalDashboardLayout({ children }: { children: React.ReactNode }) {
   const { user, logout, isAuthenticated, loading } = useAuth();
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   if (loading) {
     return (
@@ -119,7 +120,7 @@ export default function HospitalDashboardLayout({ children }: { children: React.
             <h2 className="text-2xl font-bold text-cyan-400">ADASIT HOSPITAL</h2>
             <p className="text-sm text-muted-foreground">Welcome back, {user.name || "User"}</p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             <span className="text-sm text-muted-foreground">
               {new Date().toLocaleDateString("en-US", {
                 weekday: "long",
@@ -128,6 +129,45 @@ export default function HospitalDashboardLayout({ children }: { children: React.
                 day: "numeric",
               })}
             </span>
+            
+            {/* Profile Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-background transition-colors"
+              >
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white font-bold text-sm">
+                  {user.name?.[0]?.toUpperCase()}
+                </div>
+                <span className="text-sm font-medium text-foreground hidden sm:inline">{user.name || "User"}</span>
+              </button>
+              
+              {profileMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-card border border-border rounded-lg shadow-lg z-50">
+                  <a
+                    href="/profile"
+                    onClick={() => {
+                      setLocation("/profile");
+                      setProfileMenuOpen(false);
+                    }}
+                    className="flex items-center gap-3 px-4 py-3 text-foreground hover:bg-background transition-colors border-b border-border"
+                  >
+                    <User className="w-4 h-4" />
+                    <span className="text-sm font-medium">My Profile</span>
+                  </a>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setProfileMenuOpen(false);
+                    }}
+                    className="w-full flex items-center gap-3 px-4 py-3 text-destructive hover:bg-destructive hover:text-destructive-foreground transition-colors"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span className="text-sm font-medium">Logout</span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </header>
 

@@ -11,6 +11,7 @@ import Doctors from "./pages/Doctors";
 import Appointments from "./pages/Appointments";
 import MedicalRecords from "./pages/MedicalRecords";
 import Billing from "./pages/Billing";
+import Profile from "./pages/Profile";
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function Router() {
       <Route path={"/appointments"} component={Appointments} />
       <Route path={"/medical-records"} component={MedicalRecords} />
       <Route path={"/billing"} component={Billing} />
+      <Route path={"/profile"} component={Profile} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>
