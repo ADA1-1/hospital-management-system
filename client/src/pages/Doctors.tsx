@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Plus, Search, Trash2, Edit2, X } from "lucide-react";
+import { Plus, Search, Trash2, Edit2, X, Upload, Camera } from "lucide-react";
 import HospitalDashboardLayout from "@/components/HospitalDashboardLayout";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { toast } from "sonner";
+import { uploadFile } from "@/lib/storage";
 
 const specializations = [
   "Cardiology",
@@ -26,6 +27,8 @@ export default function Doctors() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState<any>(null);
+  const [photoUrl, setPhotoUrl] = useState<string>("");
+  const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
   const [formData, setFormData] = useState({
     userId: 0,
     firstName: "",
@@ -37,6 +40,7 @@ export default function Doctors() {
     yearsOfExperience: "",
     workingDays: "",
     consultationFee: "",
+    photoUrl: "",
   });
 
   const doctorsQuery = trpc.doctor.getAll.useQuery();
@@ -61,8 +65,27 @@ export default function Doctors() {
       yearsOfExperience: "",
       workingDays: "",
       consultationFee: "",
+      photoUrl: "",
     });
+    setPhotoUrl("");
     setSelectedDoctor(null);
+  };
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingPhoto(true);
+    try {
+      const url = await uploadFile(file, `doctor-${Date.now()}`);
+      setPhotoUrl(url);
+      setFormData({ ...formData, photoUrl: url });
+      toast.success("Photo uploaded successfully");
+    } catch (error) {
+      toast.error("Failed to upload photo");
+    } finally {
+      setIsUploadingPhoto(false);
+    }
   };
 
   const handleAddDoctor = async () => {
@@ -114,6 +137,7 @@ export default function Doctors() {
 
   const handleEditClick = (doctor: any) => {
     setSelectedDoctor(doctor);
+    setPhotoUrl(doctor.photoUrl || "");
     setFormData({
       userId: doctor.userId || 0,
       firstName: doctor.firstName || "",
@@ -125,7 +149,12 @@ export default function Doctors() {
       yearsOfExperience: doctor.yearsOfExperience?.toString() || "",
       workingDays: doctor.workingDays || "",
       consultationFee: doctor.consultationFee || "",
+      photoUrl: doctor.photoUrl || "",
     });
+  };
+
+  const getInitials = (firstName: string, lastName: string) => {
+    return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
   };
 
   return (
@@ -145,6 +174,19 @@ export default function Doctors() {
           )}
         </div>
 
+        {/* Search */}
+        <div className="flex gap-2">
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-3 w-5 h-5 text-muted-foreground" />
+            <Input
+              placeholder="Search doctors by name or specialization..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+        </div>
+
         {/* Add/Edit Form */}
         {(isAddOpen || selectedDoctor) && user?.role === "admin" && (
           <Card className="p-6 bg-card border border-border">
@@ -158,6 +200,34 @@ export default function Doctors() {
               >
                 <X className="w-5 h-5" />
               </button>
+            </div>
+
+            {/* Photo Upload Section */}
+            <div className="mb-6 flex flex-col items-center">
+              <div className="relative mb-4">
+                {photoUrl ? (
+                  <img
+                    src={photoUrl}
+                    alt="Doctor"
+                    className="w-24 h-24 rounded-full object-cover border-4 border-cyan-400"
+                  />
+                ) : (
+                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white text-xl font-bold border-4 border-cyan-400">
+                    {formData.firstName && formData.lastName ? getInitials(formData.firstName, formData.lastName) : <Camera className="w-8 h-8" />}
+                  </div>
+                )}
+                <label className="absolute bottom-0 right-0 bg-orange-500 hover:bg-orange-600 text-white p-2 rounded-full cursor-pointer transition-colors">
+                  <Upload className="w-4 h-4" />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoUpload}
+                    disabled={isUploadingPhoto}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+              {isUploadingPhoto && <p className="text-sm text-muted-foreground">Uploading photo...</p>}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -249,8 +319,8 @@ export default function Doctors() {
               <div className="form-group">
                 <label className="form-label">Consultation Fee</label>
                 <input
-                  type="text"
-                  placeholder="e.g., $50"
+                  type="number"
+                  placeholder="Consultation Fee"
                   className="form-input"
                   value={formData.consultationFee}
                   onChange={(e) => setFormData({ ...formData, consultationFee: e.target.value })}
@@ -258,92 +328,84 @@ export default function Doctors() {
               </div>
             </div>
 
-            <div className="flex gap-3 justify-end mt-6">
-              <Button variant="outline" onClick={() => { resetForm(); setIsAddOpen(false); }}>
-                Cancel
-              </Button>
+            <div className="flex gap-2 mt-6">
               <Button
-                className="btn-primary"
                 onClick={selectedDoctor ? handleUpdateDoctor : handleAddDoctor}
+                className="flex-1 bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800"
               >
                 {selectedDoctor ? "Update Doctor" : "Add Doctor"}
+              </Button>
+              <Button
+                onClick={() => { resetForm(); setIsAddOpen(false); }}
+                variant="outline"
+                className="flex-1"
+              >
+                Cancel
               </Button>
             </div>
           </Card>
         )}
 
-        {/* Search */}
-        <div className="relative">
-          <Search className="absolute left-3 top-3 w-5 h-5 text-muted-foreground" />
-          <Input
-            placeholder="Search by name, email, or specialization..."
-            className="pl-10"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+        {/* Doctors List */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {doctors.map((doctor: any) => (
+            <Card key={doctor.id} className="p-6 bg-card border border-border hover:border-cyan-400 transition-colors">
+              <div className="flex flex-col items-center text-center mb-4">
+                {doctor.photoUrl ? (
+                  <img
+                    src={doctor.photoUrl}
+                    alt={`${doctor.firstName} ${doctor.lastName}`}
+                    className="w-20 h-20 rounded-full object-cover border-4 border-cyan-400 mb-3"
+                  />
+                ) : (
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-lg font-bold border-4 border-orange-400 mb-3">
+                    {getInitials(doctor.firstName, doctor.lastName)}
+                  </div>
+                )}
+                <h3 className="text-lg font-bold text-foreground">
+                  {doctor.firstName} {doctor.lastName}
+                </h3>
+                <p className="text-sm text-cyan-600 font-semibold">{doctor.specialization}</p>
+              </div>
+
+              <div className="space-y-2 text-sm mb-4">
+                <p><span className="font-semibold">Email:</span> {doctor.email}</p>
+                <p><span className="font-semibold">Phone:</span> {doctor.phone}</p>
+                <p><span className="font-semibold">License:</span> {doctor.licenseNumber}</p>
+                <p><span className="font-semibold">Experience:</span> {doctor.yearsOfExperience} years</p>
+                <p><span className="font-semibold">Working Days:</span> {doctor.workingDays}</p>
+                <p><span className="font-semibold">Fee:</span> ${doctor.consultationFee}</p>
+              </div>
+
+              {user?.role === "admin" && (
+                <div className="flex gap-2">
+                  <Button
+                    onClick={() => handleEditClick(doctor)}
+                    variant="outline"
+                    className="flex-1"
+                  >
+                    <Edit2 className="w-4 h-4 mr-2" />
+                    Edit
+                  </Button>
+                  <Button
+                    onClick={() => handleDeleteDoctor(doctor.id)}
+                    variant="outline"
+                    className="flex-1 text-red-600 hover:text-red-700"
+                  >
+                    <Trash2 className="w-4 h-4 mr-2" />
+                    Delete
+                  </Button>
+                </div>
+              )}
+            </Card>
+          ))}
         </div>
 
-        {/* Doctors Table */}
-        <Card className="overflow-hidden">
-          <div className="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Specialization</th>
-                  <th>Experience</th>
-                  <th>Available Hours</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {doctors.length === 0 ? (
-                  <tr>
-                    <td colSpan={7} className="text-center py-8 text-muted-foreground">
-                      {searchQuery ? "No doctors found matching your search" : "No doctors registered yet"}
-                    </td>
-                  </tr>
-                ) : (
-                  doctors.map((doctor) => (
-                    <tr key={doctor.id}>
-                      <td className="font-medium">{doctor.firstName} {doctor.lastName}</td>
-                      <td>{doctor.email || "—"}</td>
-                      <td>{doctor.phone || "—"}</td>
-                      <td>
-                        <span className="badge badge-success">{doctor.specialization}</span>
-                      </td>
-                      <td>{doctor.yearsOfExperience} years</td>
-                      <td>{doctor.workingDays || "—"}</td>
-                      <td>
-                        <div className="flex gap-2">
-                          {user?.role === "admin" && (
-                            <>
-                              <button
-                                className="p-2 hover:bg-background rounded transition-colors"
-                                title="Edit"
-                                onClick={() => handleEditClick(doctor)}
-                              >
-                                <Edit2 className="w-4 h-4 text-orange-400" />
-                              </button>
-                              <button
-                                className="p-2 hover:bg-background rounded transition-colors opacity-50 cursor-not-allowed"
-                                title="Delete (Coming Soon)"
-                              >
-                                <Trash2 className="w-4 h-4 text-red-400" />
-                              </button>
-                            </>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        </Card>
+        {doctors.length === 0 && (
+          <Card className="p-12 text-center bg-card border border-border">
+            <p className="text-muted-foreground">No doctors found. Add one to get started!</p>
+          </Card>
+        )}
       </div>
     </HospitalDashboardLayout>
   );

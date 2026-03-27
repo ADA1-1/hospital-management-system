@@ -185,3 +185,9 @@
 - [x] Update Home page to use PublicLayout
 - [x] Add public pages (About, Services, Contact)
 - [x] Test public navigation
+
+## Remaining Features to Implement
+
+- [x] Doctor Photo Upload feature
+- [x] Appointment Calendar View with drag-and-drop
+- [ ] Stripe Payment Integration

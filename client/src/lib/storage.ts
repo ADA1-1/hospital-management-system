@@ -45,6 +45,33 @@ export async function storagePut(
   }
 }
 
+export async function uploadFile(
+  file: File,
+  keyPrefix: string
+): Promise<string> {
+  try {
+    const reader = new FileReader();
+    return new Promise((resolve, reject) => {
+      reader.onload = async (e) => {
+        const data = e.target?.result as string;
+        const base64Data = data.split(',')[1];
+        const key = `${keyPrefix}-${Date.now()}.${file.name.split('.').pop()}`;
+        
+        try {
+          const result = await storagePut(key, base64Data, file.type);
+          resolve(result.url);
+        } catch (error) {
+          reject(error);
+        }
+      };
+      reader.onerror = () => reject(new Error('Failed to read file'));
+      reader.readAsDataURL(file);
+    });
+  } catch (error: any) {
+    throw new Error(error.message || 'Failed to upload file');
+  }
+}
+
 export async function storageGet(
   key: string,
   expiresIn?: number

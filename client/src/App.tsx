@@ -15,6 +15,7 @@ import Profile from "./pages/Profile";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
+import AppointmentCalendar from "./pages/AppointmentCalendar";
 
 function Router() {
   return (
@@ -27,6 +28,7 @@ function Router() {
       <Route path={"/patients"} component={Patients} />
       <Route path={"/doctors"} component={Doctors} />
       <Route path={"/appointments"} component={Appointments} />
+      <Route path={"/appointments-calendar"} component={AppointmentCalendar} />
       <Route path={"/medical-records"} component={MedicalRecords} />
       <Route path={"/billing"} component={Billing} />
       <Route path={"/profile"} component={Profile} />
