@@ -17,6 +17,7 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import AppointmentCalendar from "./pages/AppointmentCalendar";
 import MedicalDocuments from "./pages/MedicalDocuments";
+import Analytics from "./pages/Analytics";
 
 function Router() {
   return (
@@ -31,6 +32,7 @@ function Router() {
       <Route path={"/appointments"} component={Appointments} />
        <Route path={"/appointment-calendar"} component={AppointmentCalendar} />
       <Route path={"/medical-documents"} component={MedicalDocuments} />
+      <Route path={"/analytics"} component={Analytics} />
       <Route path={"/medical-records"} component={MedicalRecords} />
       <Route path={"/billing"} component={Billing} />
       <Route path={"/profile"} component={Profile} />
