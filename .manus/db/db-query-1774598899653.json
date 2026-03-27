@@ -1,0 +1,13 @@
+{
+  "query": "SELECT COUNT(*) as patient_count FROM patients;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway05.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2PPt2BNMeeMMBCs.root --database QD8CxmkBoXQQrVCLP9dFZA --execute SELECT COUNT(*) as patient_count FROM patients;",
+  "rows": [
+    {
+      "patient_count": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "patient_count\n0\n",
+  "stderr": "",
+  "execution_time_ms": 52
+}

@@ -71,19 +71,19 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
 
         {/* Mobile Navigation Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-cyan-200/40 px-4 py-4 space-y-3">
+          <div className="md:hidden bg-white border-t-2 border-cyan-400 px-4 py-6 space-y-4 absolute top-full left-0 right-0 z-40 shadow-lg">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="block px-4 py-2 text-slate-700 hover:bg-cyan-50 rounded-lg transition-colors font-medium"
+                className="block px-4 py-3 text-slate-800 font-semibold hover:bg-cyan-100 hover:text-cyan-900 rounded-lg transition-all bg-slate-50 border-l-4 border-cyan-400"
               >
                 {link.label}
               </a>
             ))}
             <Button
               onClick={() => (window.location.href = getLoginUrl())}
-              className="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white gap-2"
+              className="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white gap-2 py-3 font-semibold"
             >
               <LogIn className="w-4 h-4" />
               Sign In

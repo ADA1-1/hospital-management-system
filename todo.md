@@ -191,3 +191,7 @@
 - [x] Doctor Photo Upload feature
 - [x] Appointment Calendar View with drag-and-drop
 - [ ] Stripe Payment Integration
+
+## Bug Fixes
+
+- [x] Fix hamburger menu visibility - menu items not showing when menu is open
