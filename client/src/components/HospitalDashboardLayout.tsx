@@ -174,6 +174,12 @@ export default function HospitalDashboardLayout({ children }: { children: React.
         {/* Page Content */}
         <div className="flex-1 overflow-auto">
           <div className="p-8">{children}</div>
+          
+          {/* Footer */}
+          <footer className="bg-card border-t border-border mt-8 px-8 py-6 text-center text-muted-foreground text-sm">
+            <p>&copy; 2026 ADASIT Hospital. All rights reserved.</p>
+            <p className="mt-2 text-cyan-600 font-medium">Powered by GIVTECH COMPANY</p>
+          </footer>
         </div>
       </main>
     </div>

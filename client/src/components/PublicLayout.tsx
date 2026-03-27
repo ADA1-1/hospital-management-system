@@ -160,6 +160,7 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
 
           <div className="border-t border-slate-700 pt-8 text-center text-slate-400 text-sm">
             <p>&copy; 2026 ADASIT Hospital. All rights reserved.</p>
+            <p className="mt-2 text-cyan-400">Powered by GIVTECH COMPANY</p>
           </div>
         </div>
       </footer>
