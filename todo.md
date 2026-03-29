@@ -227,3 +227,4 @@
 
 - [x] Allow all users to update their profile pictures
 - [x] Restrict backend/admin features to admin users only (REMOVED - now accessible to all authenticated users)
+- [x] Update signing page with ADASIT HOSPITAL branding and red/green/skyblue background

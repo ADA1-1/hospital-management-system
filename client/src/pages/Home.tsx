@@ -135,35 +135,36 @@ export default function Home() {
   // Not authenticated - show login page with public layout
   return (
     <PublicLayout>
-      <div className="flex flex-col items-center justify-center px-4 py-16 relative">
+      <div className="flex flex-col items-center justify-center px-4 py-16 relative min-h-screen bg-gradient-to-br from-red-500 via-green-500 to-sky-500">
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-300/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-300/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-400/30 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-green-400/30 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 right-0 w-96 h-96 bg-sky-400/30 rounded-full blur-3xl"></div>
         </div>
 
         {/* Content */}
-        <div className="relative z-10 text-center max-w-2xl">
+        <div className="relative z-10 text-center max-w-2xl bg-white/95 backdrop-blur-md p-12 rounded-2xl shadow-2xl">
           <div className="flex justify-center mb-8">
             <img
               src="https://d2xsxph8kpxj0f.cloudfront.net/310519663480390382/QD8CxmkBoXQQrVCLP9dFZA/pasted_file_SsxR3a_WhatsAppImage2026-03-27at10.25.01_d1264090.jpeg"
               alt="ADASIT Hospital"
-              className="w-32 h-32 rounded-lg object-cover border-4 border-cyan-400 shadow-lg shadow-cyan-400/50 animate-pulse"
+              className="w-32 h-32 rounded-lg object-cover border-4 border-red-500 shadow-lg shadow-red-500/50 animate-pulse"
             />
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-bold text-cyan-900 mb-4 tracking-tight">
+          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-red-600 via-green-600 to-sky-600 bg-clip-text text-transparent mb-4 tracking-tight">
             ADASIT HOSPITAL
           </h1>
 
-          <p className="text-xl text-cyan-700 mb-8 leading-relaxed">
+          <p className="text-xl text-gray-700 mb-8 leading-relaxed font-semibold">
             Advanced Digital Healthcare Management System
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               onClick={() => window.location.href = getLoginUrl()}
-              className="bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white px-8 py-6 text-lg font-semibold rounded-lg shadow-lg shadow-cyan-600/40 transition-all"
+              className="bg-gradient-to-r from-red-600 via-green-600 to-sky-600 hover:from-red-700 hover:via-green-700 hover:to-sky-700 text-white px-8 py-6 text-lg font-semibold rounded-lg shadow-lg shadow-red-600/40 transition-all"
             >
               Sign In with Manus
             </Button>
@@ -171,20 +172,20 @@ export default function Home() {
 
           {/* Features */}
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-left">
-              <Users className="w-8 h-8 text-cyan-600 mb-3" />
-              <h3 className="text-lg font-semibold text-cyan-900 mb-2">Patient Management</h3>
-              <p className="text-slate-600">Complete patient records with medical history</p>
+            <div className="text-left p-4 rounded-lg bg-red-50/80">
+              <Users className="w-8 h-8 text-red-600 mb-3" />
+              <h3 className="text-lg font-semibold text-red-900 mb-2">Patient Management</h3>
+              <p className="text-gray-700">Complete patient records with medical history</p>
             </div>
-            <div className="text-left">
-              <Calendar className="w-8 h-8 text-orange-600 mb-3" />
-              <h3 className="text-lg font-semibold text-orange-900 mb-2">Appointments</h3>
-              <p className="text-slate-600">Schedule and manage appointments efficiently</p>
+            <div className="text-left p-4 rounded-lg bg-green-50/80">
+              <Calendar className="w-8 h-8 text-green-600 mb-3" />
+              <h3 className="text-lg font-semibold text-green-900 mb-2">Appointments</h3>
+              <p className="text-gray-700">Schedule and manage appointments efficiently</p>
             </div>
-            <div className="text-left">
-              <DollarSign className="w-8 h-8 text-green-600 mb-3" />
-              <h3 className="text-lg font-semibold text-green-900 mb-2">Billing</h3>
-              <p className="text-slate-600">Generate bills and track payments</p>
+            <div className="text-left p-4 rounded-lg bg-sky-50/80">
+              <DollarSign className="w-8 h-8 text-sky-600 mb-3" />
+              <h3 className="text-lg font-semibold text-sky-900 mb-2">Billing</h3>
+              <p className="text-gray-700">Generate bills and track payments</p>
             </div>
           </div>
         </div>
