@@ -665,6 +665,25 @@ export const appRouter = router({
   document: documentRouter,
   notification: notificationRouter,
   stakeholder: stakeholderRouter,
+  user: router({
+    updateProfile: protectedProcedure
+      .input(
+        z.object({
+          name: z.string().optional(),
+          email: z.string().email().optional(),
+          phone: z.string().optional(),
+          photoUrl: z.string().url().optional(),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        return await db.updateUserProfile(ctx.user.id, input);
+      }),
+    updatePhotoUrl: protectedProcedure
+      .input(z.object({ photoUrl: z.string().url() }))
+      .mutation(async ({ input, ctx }) => {
+        return await db.updateUserPhotoUrl(ctx.user.id, input.photoUrl);
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

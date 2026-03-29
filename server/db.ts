@@ -801,3 +801,38 @@ export async function deleteStakeholder(id: number): Promise<boolean> {
   await db.delete(stakeholders).where(eq(stakeholders.id, id));
   return true;
 }
+
+
+// ============= USER PROFILE QUERIES =============
+export async function updateUserProfile(
+  id: number,
+  data: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    photoUrl?: string;
+  }
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const updateData: any = {
+    updatedAt: new Date(),
+  };
+  
+  if (data.name !== undefined) updateData.name = data.name;
+  if (data.email !== undefined) updateData.email = data.email;
+  if (data.phone !== undefined) updateData.phone = data.phone;
+  if (data.photoUrl !== undefined) updateData.photoUrl = data.photoUrl;
+  
+  await db
+    .update(users)
+    .set(updateData)
+    .where(eq(users.id, id));
+  
+  return await getUserById(id);
+}
+
+export async function updateUserPhotoUrl(id: number, photoUrl: string) {
+  return await updateUserProfile(id, { photoUrl });
+}

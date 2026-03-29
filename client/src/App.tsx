@@ -18,6 +18,7 @@ import Contact from "./pages/Contact";
 import AppointmentCalendar from "./pages/AppointmentCalendar";
 import MedicalDocuments from "./pages/MedicalDocuments";
 import Analytics from "./pages/Analytics";
+import UserProfile from "./pages/UserProfile";
 
 function Router() {
   return (
@@ -36,6 +37,7 @@ function Router() {
       <Route path={"/medical-records"} component={MedicalRecords} />
       <Route path={"/billing"} component={Billing} />
       <Route path={"/profile"} component={Profile} />
+      <Route path={"/user-profile"} component={UserProfile} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

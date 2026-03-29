@@ -141,6 +141,17 @@ export default function HospitalDashboardLayout({ children }: { children: React.
                     <User className="w-4 h-4" />
                     <span className="text-sm font-medium">My Profile</span>
                   </a>
+                  <a
+                    href="/user-profile"
+                    onClick={() => {
+                      setLocation("/user-profile");
+                      setProfileMenuOpen(false);
+                    }}
+                    className="flex items-center gap-3 px-4 py-3 text-foreground hover:bg-background transition-colors border-b border-border"
+                  >
+                    <Settings className="w-4 h-4" />
+                    <span className="text-sm font-medium">Settings</span>
+                  </a>
                   <button
                     onClick={() => {
                       logout();
