@@ -12,19 +12,19 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: "Dashboard", href: "/dashboard", icon: <Home className="w-5 h-5" />, roles: ["admin", "doctor", "receptionist"] },
-  { label: "Patients", href: "/patients", icon: <Users className="w-5 h-5" />, roles: ["admin", "receptionist", "doctor"] },
-  { label: "Doctors", href: "/doctors", icon: <Stethoscope className="w-5 h-5" />, roles: ["admin", "receptionist"] },
-  { label: "Appointments", href: "/appointments", icon: <Calendar className="w-5 h-5" />, roles: ["admin", "receptionist", "doctor"] },
-  { label: "Medical Records", href: "/medical-records", icon: <FileText className="w-5 h-5" />, roles: ["admin", "doctor"] },
-  { label: "Billing", href: "/billing", icon: <CreditCard className="w-5 h-5" />, roles: ["admin", "receptionist"] },
-  { label: "Analytics", href: "/analytics", icon: <BarChart3 className="w-5 h-5" />, roles: ["admin"] },
+  { label: "Dashboard", href: "/dashboard", icon: <Home className="w-5 h-5" />, roles: ["admin", "doctor", "receptionist", "user", "patient", "stakeholder"] },
+  { label: "Patients", href: "/patients", icon: <Users className="w-5 h-5" />, roles: ["admin", "receptionist", "doctor", "user", "patient", "stakeholder"] },
+  { label: "Doctors", href: "/doctors", icon: <Stethoscope className="w-5 h-5" />, roles: ["admin", "receptionist", "user", "patient", "stakeholder"] },
+  { label: "Appointments", href: "/appointments", icon: <Calendar className="w-5 h-5" />, roles: ["admin", "receptionist", "doctor", "user", "patient", "stakeholder"] },
+  { label: "Medical Records", href: "/medical-records", icon: <FileText className="w-5 h-5" />, roles: ["admin", "doctor", "user", "patient", "stakeholder"] },
+  { label: "Billing", href: "/billing", icon: <CreditCard className="w-5 h-5" />, roles: ["admin", "receptionist", "user", "patient", "stakeholder"] },
+  { label: "Analytics", href: "/analytics", icon: <BarChart3 className="w-5 h-5" />, roles: ["admin", "doctor", "receptionist", "user", "patient", "stakeholder"] },
 ];
 
 export default function HospitalDashboardLayout({ children }: { children: React.ReactNode }) {
   const { user, logout, isAuthenticated, loading } = useAuth();
   const [location, setLocation] = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(true); // Always keep sidebar open
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   if (loading) {
@@ -47,29 +47,17 @@ export default function HospitalDashboardLayout({ children }: { children: React.
   return (
     <div className="min-h-screen bg-background flex">
       {/* Sidebar */}
-      <aside
-        className={`${
-          sidebarOpen ? "w-64" : "w-20"
-        } bg-card border-r border-border transition-all duration-300 flex flex-col shadow-lg`}
-      >
+      <aside className="w-64 bg-card border-r border-border flex flex-col shadow-lg">
         {/* Header */}
         <div className="p-4 border-b border-border flex items-center justify-between">
-          {sidebarOpen && (
-            <div className="flex items-center gap-2">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663480390382/QD8CxmkBoXQQrVCLP9dFZA/pasted_file_SsxR3a_WhatsAppImage2026-03-27at10.25.01_d1264090.jpeg"
-                alt="ADASIT Hospital"
-                className="w-10 h-10 rounded-full object-cover border-2 border-cyan-400"
-              />
-              <h1 className="text-lg font-bold text-cyan-600">ADASIT</h1>
-            </div>
-          )}
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 hover:bg-background rounded-lg transition-colors"
-          >
-            {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          <div className="flex items-center gap-2">
+            <img
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663480390382/QD8CxmkBoXQQrVCLP9dFZA/pasted_file_SsxR3a_WhatsAppImage2026-03-27at10.25.01_d1264090.jpeg"
+              alt="ADASIT Hospital"
+              className="w-10 h-10 rounded-full object-cover border-2 border-cyan-400"
+            />
+            <h1 className="text-lg font-bold text-cyan-600">ADASIT</h1>
+          </div>
         </div>
 
         {/* Navigation */}
@@ -87,7 +75,7 @@ export default function HospitalDashboardLayout({ children }: { children: React.
                 }`}
               >
                 <span className="flex-shrink-0">{item.icon}</span>
-                {sidebarOpen && <span className="text-sm font-medium">{item.label}</span>}
+                <span className="text-sm font-medium">{item.label}</span>
               </a>
             );
           })}
@@ -95,19 +83,17 @@ export default function HospitalDashboardLayout({ children }: { children: React.
 
         {/* User Profile & Logout */}
         <div className="p-4 border-t border-border space-y-3">
-          {sidebarOpen && (
-            <div className="px-4 py-3 bg-background rounded-lg">
-              <p className="text-xs text-muted-foreground">Logged in as</p>
-              <p className="text-sm font-semibold text-foreground truncate">{user.name || user.email}</p>
-              <p className="text-xs text-muted-foreground capitalize">{user.role}</p>
-            </div>
-          )}
+          <div className="px-4 py-3 bg-background rounded-lg">
+            <p className="text-xs text-muted-foreground">Logged in as</p>
+            <p className="text-sm font-semibold text-foreground truncate">{user.name || user.email}</p>
+            <p className="text-xs text-muted-foreground capitalize">{user.role}</p>
+          </div>
           <button
             onClick={() => logout()}
             className="w-full flex items-center gap-2 px-4 py-2 text-destructive hover:bg-destructive hover:text-destructive-foreground rounded-lg transition-colors"
           >
             <LogOut className="w-4 h-4" />
-            {sidebarOpen && <span className="text-sm font-medium">Logout</span>}
+            <span className="text-sm font-medium">Logout</span>
           </button>
         </div>
       </aside>

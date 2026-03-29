@@ -207,3 +207,8 @@
 - [x] Remove Manus watermark from layout
 - [x] Replace with GIVTECH COMPANY branding
 - [x] Add footer with "Powered by GIVTECH COMPANY"
+
+## Bug Fixes - Current
+
+- [x] Fix hamburger menu visibility for non-admin users (doctor, receptionist, user, patient roles)
+- [x] Add stakeholder role visibility to all menu items (Dashboard, Patients, Doctors, Appointments, Medical Records, Billing, Analytics)
