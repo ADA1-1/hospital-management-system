@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "sonner";
@@ -65,7 +64,8 @@ export default function StakeholderProfile() {
       });
 
       if (!uploadResponse.ok) {
-        throw new Error("Upload failed");
+        const errorData = await uploadResponse.json();
+        throw new Error(errorData.error || "Upload failed");
       }
 
       const { url, key } = await uploadResponse.json();
@@ -79,8 +79,10 @@ export default function StakeholderProfile() {
         });
       }
     } catch (error) {
-      toast.error("Failed to upload picture");
-      console.error(error);
+      const errorMessage = error instanceof Error ? error.message : "Failed to upload picture";
+      toast.error(errorMessage);
+      console.error("Upload error:", error);
+      setPreviewUrl(null);
     } finally {
       setUploading(false);
     }
@@ -106,7 +108,7 @@ export default function StakeholderProfile() {
               </AvatarFallback>
             </Avatar>
 
-            <div className="space-y-2">
+            <div className="space-y-2 w-full max-w-xs">
               <input
                 ref={fileInputRef}
                 type="file"
@@ -116,10 +118,10 @@ export default function StakeholderProfile() {
               />
               <Button
                 onClick={() => fileInputRef.current?.click()}
-                disabled={uploading}
+                disabled={uploading || uploadPhotoMutation.isPending}
                 className="w-full"
               >
-                {uploading ? "Uploading..." : "Upload Picture"}
+                {uploading || uploadPhotoMutation.isPending ? "Uploading..." : "Upload Picture"}
               </Button>
               <p className="text-sm text-gray-500 text-center">
                 Max file size: 5MB (JPG, PNG, GIF)

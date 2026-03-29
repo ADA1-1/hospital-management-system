@@ -216,3 +216,7 @@
 ## New Features - In Progress
 
 - [x] Add stakeholder profile picture upload functionality
+
+## Bug Fixes - Current
+
+- [x] Fix stakeholder profile picture upload not working

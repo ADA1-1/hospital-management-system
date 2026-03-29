@@ -1,17 +1,32 @@
 import express, { Request, Response } from "express";
+import multer from "multer";
 import { storagePut } from "./storage";
 import { randomBytes } from "crypto";
 
 export const uploadRouter = express.Router();
 
-// Middleware to parse multipart form data
-uploadRouter.use(express.json());
+// Configure multer for file uploads
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB
+  },
+  fileFilter: (req, file, cb) => {
+    // Only allow image files
+    if (file.mimetype.startsWith("image/")) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only image files are allowed"));
+    }
+  },
+});
 
 /**
  * POST /api/upload
  * Upload a file to S3 storage
  */
-uploadRouter.post("/upload", async (req: any, res: Response) => {
+uploadRouter.post("/upload", upload.single("file"), async (req: any, res: Response) => {
   try {
     // Check if file is in request
     if (!req.file) {
@@ -19,16 +34,6 @@ uploadRouter.post("/upload", async (req: any, res: Response) => {
     }
 
     const file = req.file;
-    
-    // Validate file type
-    if (!file.mimetype.startsWith("image/")) {
-      return res.status(400).json({ error: "Only image files are allowed" });
-    }
-
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      return res.status(400).json({ error: "File size must be less than 5MB" });
-    }
 
     // Generate unique file key
     const randomSuffix = randomBytes(8).toString("hex");
