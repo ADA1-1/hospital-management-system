@@ -220,3 +220,5 @@
 ## Bug Fixes - Current
 
 - [x] Fix stakeholder profile picture upload not working
+- [x] Add photoUrl column to users table
+- [x] Set admin profile picture to Audi car image

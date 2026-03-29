@@ -22,6 +22,7 @@ export const users = mysqlTable("users", {
   name: text("name"),
   email: varchar("email", { length: 320 }),
   phone: varchar("phone", { length: 20 }),
+  photoUrl: text("photoUrl"),
   loginMethod: varchar("loginMethod", { length: 64 }),
   role: mysqlEnum("role", ["admin", "doctor", "receptionist", "user", "patient", "stakeholder"]).default("user").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
