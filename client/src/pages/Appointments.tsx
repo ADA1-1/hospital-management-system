@@ -10,14 +10,6 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { toast } from "sonner";
 
 export default function Appointments() {
-  return (
-    <AdminOnly>
-      <AppointmentsContent />
-    </AdminOnly>
-  );
-}
-
-function AppointmentsContent() {
   const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddOpen, setIsAddOpen] = useState(false);

@@ -11,14 +11,6 @@ import { toast } from "sonner";
 import { storagePut } from "@/lib/storage";
 
 export default function Patients() {
-  return (
-    <AdminOnly>
-      <PatientsContent />
-    </AdminOnly>
-  );
-}
-
-function PatientsContent() {
   const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddOpen, setIsAddOpen] = useState(false);

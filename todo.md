@@ -226,4 +226,4 @@
 ## New Features - Current
 
 - [x] Allow all users to update their profile pictures
-- [x] Restrict backend/admin features to admin users only
+- [x] Restrict backend/admin features to admin users only (REMOVED - now accessible to all authenticated users)

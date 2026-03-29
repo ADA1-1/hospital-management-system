@@ -15,14 +15,6 @@ interface StatCard {
 }
 
 export default function Dashboard() {
-  return (
-    <AdminOnly>
-      <DashboardContent />
-    </AdminOnly>
-  );
-}
-
-function DashboardContent() {
   const { user } = useAuth();
   const [stats, setStats] = useState<StatCard[]>([]);
   const [loading, setLoading] = useState(true);

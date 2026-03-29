@@ -24,14 +24,6 @@ const specializations = [
 ];
 
 export default function Doctors() {
-  return (
-    <AdminOnly>
-      <DoctorsContent />
-    </AdminOnly>
-  );
-}
-
-function DoctorsContent() {
   const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddOpen, setIsAddOpen] = useState(false);
