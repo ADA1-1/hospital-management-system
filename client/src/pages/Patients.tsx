@@ -5,11 +5,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search, Trash2, Edit2, Eye, X, Upload } from "lucide-react";
 import HospitalDashboardLayout from "@/components/HospitalDashboardLayout";
+import AdminOnly from "@/components/AdminOnly";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { toast } from "sonner";
 import { storagePut } from "@/lib/storage";
 
 export default function Patients() {
+  return (
+    <AdminOnly>
+      <PatientsContent />
+    </AdminOnly>
+  );
+}
+
+function PatientsContent() {
   const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddOpen, setIsAddOpen] = useState(false);

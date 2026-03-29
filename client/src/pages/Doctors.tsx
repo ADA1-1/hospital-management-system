@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search, Trash2, Edit2, X, Upload, Camera } from "lucide-react";
 import HospitalDashboardLayout from "@/components/HospitalDashboardLayout";
+import AdminOnly from "@/components/AdminOnly";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { toast } from "sonner";
 import { uploadFile } from "@/lib/storage";
@@ -23,6 +24,14 @@ const specializations = [
 ];
 
 export default function Doctors() {
+  return (
+    <AdminOnly>
+      <DoctorsContent />
+    </AdminOnly>
+  );
+}
+
+function DoctorsContent() {
   const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddOpen, setIsAddOpen] = useState(false);

@@ -5,10 +5,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search, X, Calendar, Clock, User, Stethoscope } from "lucide-react";
 import HospitalDashboardLayout from "@/components/HospitalDashboardLayout";
+import AdminOnly from "@/components/AdminOnly";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { toast } from "sonner";
 
 export default function Appointments() {
+  return (
+    <AdminOnly>
+      <AppointmentsContent />
+    </AdminOnly>
+  );
+}
+
+function AppointmentsContent() {
   const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddOpen, setIsAddOpen] = useState(false);

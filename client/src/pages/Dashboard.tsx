@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Users, Stethoscope, Calendar, FileText, CreditCard, TrendingUp, File } from "lucide-react";
 import HospitalDashboardLayout from "@/components/HospitalDashboardLayout";
+import AdminOnly from "@/components/AdminOnly";
 
 interface StatCard {
   label: string;
@@ -14,6 +15,14 @@ interface StatCard {
 }
 
 export default function Dashboard() {
+  return (
+    <AdminOnly>
+      <DashboardContent />
+    </AdminOnly>
+  );
+}
+
+function DashboardContent() {
   const { user } = useAuth();
   const [stats, setStats] = useState<StatCard[]>([]);
   const [loading, setLoading] = useState(true);

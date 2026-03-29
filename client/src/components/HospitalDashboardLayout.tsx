@@ -12,13 +12,13 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: "Dashboard", href: "/dashboard", icon: <Home className="w-5 h-5" />, roles: ["admin", "doctor", "receptionist", "user", "patient", "stakeholder"] },
-  { label: "Patients", href: "/patients", icon: <Users className="w-5 h-5" />, roles: ["admin", "receptionist", "doctor", "user", "patient", "stakeholder"] },
-  { label: "Doctors", href: "/doctors", icon: <Stethoscope className="w-5 h-5" />, roles: ["admin", "receptionist", "user", "patient", "stakeholder"] },
-  { label: "Appointments", href: "/appointments", icon: <Calendar className="w-5 h-5" />, roles: ["admin", "receptionist", "doctor", "user", "patient", "stakeholder"] },
-  { label: "Medical Records", href: "/medical-records", icon: <FileText className="w-5 h-5" />, roles: ["admin", "doctor", "user", "patient", "stakeholder"] },
-  { label: "Billing", href: "/billing", icon: <CreditCard className="w-5 h-5" />, roles: ["admin", "receptionist", "user", "patient", "stakeholder"] },
-  { label: "Analytics", href: "/analytics", icon: <BarChart3 className="w-5 h-5" />, roles: ["admin", "doctor", "receptionist", "user", "patient", "stakeholder"] },
+  { label: "Dashboard", href: "/dashboard", icon: <Home className="w-5 h-5" />, roles: ["admin"] },
+  { label: "Patients", href: "/patients", icon: <Users className="w-5 h-5" />, roles: ["admin"] },
+  { label: "Doctors", href: "/doctors", icon: <Stethoscope className="w-5 h-5" />, roles: ["admin"] },
+  { label: "Appointments", href: "/appointments", icon: <Calendar className="w-5 h-5" />, roles: ["admin"] },
+  { label: "Medical Records", href: "/medical-records", icon: <FileText className="w-5 h-5" />, roles: ["admin"] },
+  { label: "Billing", href: "/billing", icon: <CreditCard className="w-5 h-5" />, roles: ["admin"] },
+  { label: "Analytics", href: "/analytics", icon: <BarChart3 className="w-5 h-5" />, roles: ["admin"] },
 ];
 
 export default function HospitalDashboardLayout({ children }: { children: React.ReactNode }) {
