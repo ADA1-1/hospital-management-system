@@ -23,7 +23,7 @@ export const users = mysqlTable("users", {
   email: varchar("email", { length: 320 }),
   phone: varchar("phone", { length: 20 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
-  role: mysqlEnum("role", ["admin", "doctor", "receptionist", "user"]).default("user").notNull(),
+  role: mysqlEnum("role", ["admin", "doctor", "receptionist", "user", "patient", "stakeholder"]).default("user").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
@@ -251,3 +251,26 @@ export const stripeCustomers = mysqlTable("stripeCustomers", {
 
 export type StripeCustomer = typeof stripeCustomers.$inferSelect;
 export type InsertStripeCustomer = typeof stripeCustomers.$inferInsert;
+
+/**
+ * Stakeholders table - stores stakeholder information and profile pictures
+ */
+export const stakeholders = mysqlTable("stakeholders", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().unique(),
+  firstName: varchar("firstName", { length: 100 }).notNull(),
+  lastName: varchar("lastName", { length: 100 }).notNull(),
+  email: varchar("email", { length: 320 }).notNull(),
+  phone: varchar("phone", { length: 20 }),
+  photoUrl: text("photoUrl"), // Profile picture URL
+  photoKey: varchar("photoKey", { length: 255 }), // S3 key for deletion
+  organization: varchar("organization", { length: 255 }),
+  position: varchar("position", { length: 100 }),
+  stakeholderType: mysqlEnum("stakeholderType", ["investor", "board_member", "partner", "sponsor", "other"]).default("other"),
+  bio: text("bio"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Stakeholder = typeof stakeholders.$inferSelect;
+export type InsertStakeholder = typeof stakeholders.$inferInsert;

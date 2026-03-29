@@ -33,6 +33,9 @@ import {
   stripeCustomers,
   InsertStripeCustomer,
   StripeCustomer,
+  stakeholders,
+  InsertStakeholder,
+  Stakeholder,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
@@ -711,4 +714,90 @@ export async function getStripeCustomerByPatientId(patientId: number): Promise<S
 // Helper function for OR conditions
 function or(...conditions: any[]) {
   return conditions.reduce((acc, cond) => (acc ? { or: [acc, cond] } : cond));
+}
+
+// ============= STAKEHOLDER QUERIES =============
+
+export async function createStakeholder(
+  stakeholder: InsertStakeholder
+): Promise<Stakeholder> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(stakeholders).values(stakeholder);
+  const stakeholderId = result[0].insertId;
+  const newStakeholder = await db
+    .select()
+    .from(stakeholders)
+    .where(eq(stakeholders.id, stakeholderId as number))
+    .limit(1);
+  return newStakeholder[0];
+}
+
+export async function getStakeholderById(id: number): Promise<Stakeholder | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db
+    .select()
+    .from(stakeholders)
+    .where(eq(stakeholders.id, id))
+    .limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getStakeholderByUserId(userId: number): Promise<Stakeholder | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db
+    .select()
+    .from(stakeholders)
+    .where(eq(stakeholders.userId, userId))
+    .limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function updateStakeholder(
+  id: number,
+  stakeholder: Partial<InsertStakeholder>
+): Promise<Stakeholder | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+  await db.update(stakeholders).set(stakeholder).where(eq(stakeholders.id, id));
+  const result = await db
+    .select()
+    .from(stakeholders)
+    .where(eq(stakeholders.id, id))
+    .limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function updateStakeholderPhoto(
+  id: number,
+  photoUrl: string,
+  photoKey: string
+): Promise<Stakeholder | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+  await db
+    .update(stakeholders)
+    .set({ photoUrl, photoKey })
+    .where(eq(stakeholders.id, id));
+  const result = await db
+    .select()
+    .from(stakeholders)
+    .where(eq(stakeholders.id, id))
+    .limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getAllStakeholders(): Promise<Stakeholder[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return await db.select().from(stakeholders);
+}
+
+export async function deleteStakeholder(id: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  await db.delete(stakeholders).where(eq(stakeholders.id, id));
+  return true;
 }

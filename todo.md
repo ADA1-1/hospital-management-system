@@ -212,3 +212,7 @@
 
 - [x] Fix hamburger menu visibility for non-admin users (doctor, receptionist, user, patient roles)
 - [x] Add stakeholder role visibility to all menu items (Dashboard, Patients, Doctors, Appointments, Medical Records, Billing, Analytics)
+
+## New Features - In Progress
+
+- [x] Add stakeholder profile picture upload functionality

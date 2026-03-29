@@ -561,8 +561,88 @@ const notificationRouter = router({
     }),
 });
 
-// ============= MAIN ROUTER =============
+// ============= STAKEHOLDER ROUTER =============
+const stakeholderProcedure = protectedProcedure.use(({ ctx, next }) => {
+  if (ctx.user.role !== "stakeholder" && ctx.user.role !== "admin") {
+    throw new TRPCError({ code: "FORBIDDEN", message: "Stakeholder access required" });
+  }
+  return next({ ctx });
+});
 
+const stakeholderRouter = router({
+  create: adminProcedure
+    .input(
+      z.object({
+        userId: z.number(),
+        firstName: z.string().min(1),
+        lastName: z.string().min(1),
+        email: z.string().email(),
+        phone: z.string().optional(),
+        organization: z.string().optional(),
+        position: z.string().optional(),
+        stakeholderType: z.enum(["investor", "board_member", "partner", "sponsor", "other"]).optional(),
+        bio: z.string().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      return await db.createStakeholder(input as any);
+    }),
+
+  getById: protectedProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ input }) => {
+      return await db.getStakeholderById(input.id);
+    }),
+
+  getByUserId: protectedProcedure
+    .input(z.object({ userId: z.number() }))
+    .query(async ({ input }) => {
+      return await db.getStakeholderByUserId(input.userId);
+    }),
+
+  getAll: adminProcedure.query(async () => {
+    return await db.getAllStakeholders();
+  }),
+
+  update: stakeholderProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        firstName: z.string().optional(),
+        lastName: z.string().optional(),
+        email: z.string().email().optional(),
+        phone: z.string().optional(),
+        organization: z.string().optional(),
+        position: z.string().optional(),
+        stakeholderType: z.enum(["investor", "board_member", "partner", "sponsor", "other"]).optional(),
+        bio: z.string().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const { id, ...data } = input;
+      return await db.updateStakeholder(id, data as any);
+    }),
+
+  uploadPhoto: stakeholderProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        photoUrl: z.string().url(),
+        photoKey: z.string().min(1),
+      })
+    )
+    .mutation(async ({ input }) => {
+      return await db.updateStakeholderPhoto(input.id, input.photoUrl, input.photoKey);
+    }),
+
+  delete: adminProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      return await db.deleteStakeholder(input.id);
+    }),
+});
+
+// ============= MAIN ROUTER =============
 export const appRouter = router({
   system: systemRouter,
   auth: router({
@@ -584,6 +664,7 @@ export const appRouter = router({
   payment: paymentRouter,
   document: documentRouter,
   notification: notificationRouter,
+  stakeholder: stakeholderRouter,
 });
 
 export type AppRouter = typeof appRouter;
