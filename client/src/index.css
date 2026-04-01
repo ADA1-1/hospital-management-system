@@ -183,3 +183,120 @@ body {
     }
   }
 }
+
+/* Enhanced responsive design for all screen sizes */
+/* Smartwatch (240px - 320px) */
+@media (max-width: 320px) {
+  body {
+    font-size: 13px;
+  }
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+/* Small phones (320px - 480px) */
+@media (min-width: 320px) and (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+  .container {
+    padding-left: 0.875rem;
+    padding-right: 0.875rem;
+  }
+}
+
+/* Medium phones (480px - 640px) */
+@media (min-width: 480px) and (max-width: 640px) {
+  body {
+    font-size: 15px;
+  }
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Large phones (640px - 768px) */
+@media (min-width: 640px) and (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+  .container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
+
+/* Tablets (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  body {
+    font-size: 16px;
+  }
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    max-width: 960px;
+  }
+}
+
+/* Small desktop (1024px - 1280px) */
+@media (min-width: 1024px) and (max-width: 1280px) {
+  body {
+    font-size: 16px;
+  }
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    max-width: 1200px;
+  }
+}
+
+/* Desktop (1280px - 1920px) */
+@media (min-width: 1280px) and (max-width: 1920px) {
+  body {
+    font-size: 16px;
+  }
+  .container {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    max-width: 1536px;
+  }
+}
+
+/* Large desktop (1920px - 2560px) */
+@media (min-width: 1920px) and (max-width: 2560px) {
+  body {
+    font-size: 17px;
+  }
+  .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    max-width: 1920px;
+  }
+}
+
+/* Ultra-wide screens (2560px - 3840px) */
+@media (min-width: 2560px) and (max-width: 3840px) {
+  body {
+    font-size: 18px;
+  }
+  .container {
+    padding-left: 4rem;
+    padding-right: 4rem;
+    max-width: 2560px;
+  }
+}
+
+/* 55-inch and larger screens (3840px+) */
+@media (min-width: 3840px) {
+  body {
+    font-size: 20px;
+  }
+  .container {
+    padding-left: 5rem;
+    padding-right: 5rem;
+    max-width: 3840px;
+  }
+}

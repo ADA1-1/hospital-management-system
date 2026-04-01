@@ -47,53 +47,53 @@ export default function HospitalDashboardLayout({ children }: { children: React.
   return (
     <div className="min-h-screen bg-background flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-card border-r border-border flex flex-col shadow-lg">
+      <aside className="hidden sm:flex w-64 md:w-72 lg:w-80 xl:w-96 bg-card border-r border-border flex-col shadow-lg">
         {/* Header */}
-        <div className="p-4 border-b border-border flex items-center justify-between">
+        <div className="p-2 sm:p-3 md:p-4 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-2">
             <img
               src="https://d2xsxph8kpxj0f.cloudfront.net/310519663480390382/QD8CxmkBoXQQrVCLP9dFZA/pasted_file_SsxR3a_WhatsAppImage2026-03-27at10.25.01_d1264090.jpeg"
               alt="ADASIT Hospital"
-              className="w-10 h-10 rounded-full object-cover border-2 border-cyan-400"
+              className="w-8 sm:w-10 h-8 sm:h-10 rounded-full object-cover border-2 border-cyan-400"
             />
-            <h1 className="text-lg font-bold text-cyan-600">ADASIT</h1>
+            <h1 className="text-base sm:text-lg md:text-xl font-bold text-cyan-600">ADASIT</h1>
           </div>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-2">
+        <nav className="flex-1 p-2 sm:p-3 md:p-4 space-y-1 sm:space-y-2">
           {filteredNavItems.map((item) => {
             const isActive = location === item.href;
             return (
               <a
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                className={`flex items-center gap-2 sm:gap-3 px-2 sm:px-4 py-2 sm:py-3 rounded-lg transition-all duration-200 ${
                   isActive
                     ? "bg-accent text-accent-foreground shadow-lg"
                     : "text-foreground hover:bg-background"
                 }`}
               >
-                <span className="flex-shrink-0">{item.icon}</span>
-                <span className="text-sm font-medium">{item.label}</span>
+                <span className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5">{item.icon}</span>
+                <span className="text-xs sm:text-sm font-medium hidden md:inline">{item.label}</span>
               </a>
             );
           })}
         </nav>
 
         {/* User Profile & Logout */}
-        <div className="p-4 border-t border-border space-y-3">
-          <div className="px-4 py-3 bg-background rounded-lg">
+        <div className="p-2 sm:p-3 md:p-4 border-t border-border space-y-2 sm:space-y-3">
+          <div className="px-2 sm:px-4 py-2 sm:py-3 bg-background rounded-lg">
             <p className="text-xs text-muted-foreground">Logged in as</p>
-            <p className="text-sm font-semibold text-foreground truncate">{user.name || user.email}</p>
+            <p className="text-xs sm:text-sm font-semibold text-foreground truncate">{user.name || user.email}</p>
             <p className="text-xs text-muted-foreground capitalize">{user.role}</p>
           </div>
           <button
             onClick={() => logout()}
-            className="w-full flex items-center gap-2 px-4 py-2 text-destructive hover:bg-destructive hover:text-destructive-foreground rounded-lg transition-colors"
+            className="w-full flex items-center gap-2 px-2 sm:px-4 py-2 text-destructive hover:bg-destructive hover:text-destructive-foreground rounded-lg transition-colors text-xs sm:text-sm"
           >
             <LogOut className="w-4 h-4" />
-            <span className="text-sm font-medium">Logout</span>
+            <span className="font-medium hidden sm:inline">Logout</span>
           </button>
         </div>
       </aside>
@@ -101,13 +101,13 @@ export default function HospitalDashboardLayout({ children }: { children: React.
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top Bar */}
-        <header className="bg-card border-b border-border px-8 py-4 flex items-center justify-between shadow-sm">
-          <div>
-            <h2 className="text-2xl font-bold text-cyan-400">ADASIT HOSPITAL</h2>
-            <p className="text-sm text-muted-foreground">Welcome back, {user.name || "User"}</p>
+        <header className="bg-card border-b border-border px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between shadow-sm flex-wrap sm:flex-nowrap gap-2 sm:gap-0">
+          <div className="w-full sm:w-auto">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-cyan-400">ADASIT HOSPITAL</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground">Welcome back, {user.name || "User"}</p>
           </div>
-          <div className="flex items-center gap-6">
-            <span className="text-sm text-muted-foreground">
+          <div className="flex items-center gap-2 sm:gap-4 md:gap-6 w-full sm:w-auto justify-end">
+            <span className="text-xs sm:text-sm text-muted-foreground hidden md:inline">
               {new Date().toLocaleDateString("en-US", {
                 weekday: "long",
                 year: "numeric",
@@ -120,16 +120,16 @@ export default function HospitalDashboardLayout({ children }: { children: React.
             <div className="relative">
               <button
                 onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-                className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-background transition-colors"
+                className="flex items-center gap-2 sm:gap-3 px-2 sm:px-4 py-2 rounded-lg hover:bg-background transition-colors"
               >
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white font-bold text-sm">
+                <div className="w-7 sm:w-8 h-7 sm:h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white font-bold text-xs sm:text-sm">
                   {user.name?.[0]?.toUpperCase()}
                 </div>
-                <span className="text-sm font-medium text-foreground hidden sm:inline">{user.name || "User"}</span>
+                <span className="text-xs sm:text-sm font-medium text-foreground hidden md:inline">{user.name || "User"}</span>
               </button>
               
               {profileMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-card border border-border rounded-lg shadow-lg z-50">
+                <div className="absolute right-0 mt-2 w-40 sm:w-48 bg-card border border-border rounded-lg shadow-lg z-50">
                   <a
                     href="/profile"
                     onClick={() => {
@@ -170,10 +170,10 @@ export default function HospitalDashboardLayout({ children }: { children: React.
 
         {/* Page Content */}
         <div className="flex-1 overflow-auto">
-          <div className="p-8">{children}</div>
+          <div className="p-3 sm:p-4 md:p-6 lg:p-8">{children}</div>
           
           {/* Footer */}
-          <footer className="bg-card border-t border-border mt-8 px-8 py-6 text-center text-muted-foreground text-sm">
+          <footer className="bg-card border-t border-border mt-6 sm:mt-8 px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 text-center text-muted-foreground text-xs sm:text-sm">
             <p>&copy; 2026 ADASIT Hospital. All rights reserved.</p>
             <p className="mt-2 text-cyan-600 font-medium">Powered by GIVTECH COMPANY</p>
           </footer>

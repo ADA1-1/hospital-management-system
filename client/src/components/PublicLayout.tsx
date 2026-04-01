@@ -21,24 +21,24 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-orange-50">
       {/* Navigation Header */}
       <header className="bg-white/80 backdrop-blur-md border-b border-cyan-200/40 sticky top-0 z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3 md:py-4 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <img
               src="https://d2xsxph8kpxj0f.cloudfront.net/310519663480390382/QD8CxmkBoXQQrVCLP9dFZA/pasted_file_SsxR3a_WhatsAppImage2026-03-27at10.25.01_d1264090.jpeg"
               alt="ADASIT Hospital"
-              className="w-10 h-10 rounded-full object-cover border-2 border-cyan-400"
+              className="w-7 sm:w-8 md:w-10 h-7 sm:h-8 md:h-10 rounded-full object-cover border-2 border-cyan-400"
             />
-            <h1 className="text-2xl font-bold text-cyan-900">ADASIT HOSPITAL</h1>
+            <h1 className="text-sm sm:text-lg md:text-2xl font-bold text-cyan-900 truncate">ADASIT HOSPITAL</h1>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-slate-700 hover:text-cyan-600 font-medium transition-colors"
+                className="text-xs sm:text-sm md:text-base text-slate-700 hover:text-cyan-600 font-medium transition-colors"
               >
                 {link.label}
               </a>
@@ -46,24 +46,24 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
           </nav>
 
           {/* Login Button & Mobile Menu Toggle */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
             <Button
               onClick={() => (window.location.href = getLoginUrl())}
-              className="hidden sm:flex bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white gap-2"
+              className="hidden md:flex bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white gap-2 text-xs sm:text-sm"
             >
-              <LogIn className="w-4 h-4" />
-              Sign In
+              <LogIn className="w-3 sm:w-4 h-3 sm:h-4" />
+              <span className="hidden lg:inline">Sign In</span>
             </Button>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 hover:bg-slate-100 rounded-lg transition-colors z-50"
+              className="lg:hidden p-1 sm:p-2 hover:bg-slate-100 rounded-lg transition-colors z-50"
             >
               {mobileMenuOpen ? (
-                <X className="w-6 h-6 text-slate-600" />
+                <X className="w-5 sm:w-6 h-5 sm:h-6 text-slate-600" />
               ) : (
-                <Menu className="w-6 h-6 text-slate-600" />
+                <Menu className="w-5 sm:w-6 h-5 sm:h-6 text-slate-600" />
               )}
             </button>
           </div>
@@ -72,12 +72,12 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
 
       {/* Mobile Navigation Menu - Fixed Positioning */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed top-20 left-0 right-0 bg-white border-b-2 border-cyan-400 px-4 py-6 space-y-4 z-50 shadow-xl max-h-96 overflow-y-auto">
+        <div className="lg:hidden fixed top-16 sm:top-20 left-0 right-0 bg-white border-b-2 border-cyan-400 px-2 sm:px-4 py-4 sm:py-6 space-y-2 sm:space-y-4 z-50 shadow-xl max-h-96 overflow-y-auto">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="block px-4 py-3 text-slate-800 font-semibold hover:bg-cyan-100 hover:text-cyan-900 rounded-lg transition-all bg-slate-50 border-l-4 border-cyan-400"
+              className="block px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-base text-slate-800 font-semibold hover:bg-cyan-100 hover:text-cyan-900 rounded-lg transition-all bg-slate-50 border-l-4 border-cyan-400"
               onClick={() => setMobileMenuOpen(false)}
             >
               {link.label}
@@ -85,9 +85,9 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
           ))}
           <Button
             onClick={() => (window.location.href = getLoginUrl())}
-            className="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white gap-2 py-3 font-semibold"
+            className="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white gap-2 mt-3 sm:mt-4 text-xs sm:text-sm"
           >
-            <LogIn className="w-4 h-4" />
+            <LogIn className="w-3 sm:w-4 h-3 sm:h-4" />
             Sign In
           </Button>
         </div>
